@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#define DEBUG
 
 void print_cells(uint8_t *cells, uint8_t cell_count)
 {
@@ -56,9 +55,10 @@ int cell_comms(uint8_t *cells, uint8_t cell_count, uint8_t step_count)
       }
     }
 
-#ifdef DEBUG
-    print_cells(next_step[(step + 1)%2], cell_count);
-#endif
+    if(step < step_count - 1)
+    {
+      print_cells(next_step[(step + 1)%2], cell_count);
+    }
   }
   
   memcpy(cells, next_step[step%2], cell_count);
@@ -71,10 +71,12 @@ int cell_comms(uint8_t *cells, uint8_t cell_count, uint8_t step_count)
 
 int main(int argc, char *argv[])
 {
+  /*** Input data ***/
   uint8_t cells[] = { 1, 0, 1, 1};
-  uint8_t cell_count = sizeof(cells)/sizeof(cells[0]);
-  
   uint8_t k = 2;
+  /******************/
+
+  uint8_t cell_count = sizeof(cells)/sizeof(cells[0]);
   
   print_cells(cells, cell_count);
 
